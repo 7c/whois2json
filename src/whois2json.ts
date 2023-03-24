@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import chalk from 'chalk'
 import { parseWhois, rawWhois } from './tools'
 import mini from "minimist"
@@ -8,10 +9,13 @@ async function start() {
         let domain = argv._[0] ? argv._[0] : "test.com"
         // console.log(`whois2json ${domain}`)
         let got = await rawWhois(domain)
-        // console.log(got)
-        let res = parseWhois(got)
-        console.log(res)
-
+        if (got) {
+            // console.log(got)
+            let res = parseWhois(got)
+            console.log(res)
+        } else {
+            console.log()
+        }
     } catch (err) {
         console.log(err)
     }

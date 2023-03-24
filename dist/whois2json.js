@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -21,9 +22,14 @@ function start() {
             let domain = argv._[0] ? argv._[0] : "test.com";
             // console.log(`whois2json ${domain}`)
             let got = yield (0, tools_1.rawWhois)(domain);
-            // console.log(got)
-            let res = (0, tools_1.parseWhois)(got);
-            console.log(res);
+            if (got) {
+                // console.log(got)
+                let res = (0, tools_1.parseWhois)(got);
+                console.log(res);
+            }
+            else {
+                console.log();
+            }
         }
         catch (err) {
             console.log(err);
