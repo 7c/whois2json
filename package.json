@@ -1,0 +1,28 @@
+{
+  "name": "whois2json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/psl": "^1.1.0",
+    "chalk": "^4.1.2",
+    "debug": "^4.3.4",
+    "minimist": "^1.2.8",
+    "mybase": "^1.0.38",
+    "psl": "^1.9.0",
+    "punycode": "^2.3.0",
+    "whois": "^2.14.0",
+    "whoisserver-world": "^1.0.23"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.5",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "should": "^13.2.3"
+  }
+}
