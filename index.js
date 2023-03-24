@@ -1,7 +1,5 @@
 const { parseDomain } = require("whoisserver-world");
-const { rawWhois, parseWhois } = require("./src/tools");
-
-
+const { rawWhois, parseWhois } = require("./dist/tools");
 
 function whois2json(hostname) {
     let raw = rawWhois(hostname)
