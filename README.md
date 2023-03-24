@@ -6,6 +6,8 @@ library to whois certain TLDs. We use whoisserver-world library to parseDomain a
 
 ```
 import { whois2json } from '7c/whois2json'
+
+let result = await whois2json(domain.name)
 ```
 
 ## CLI
