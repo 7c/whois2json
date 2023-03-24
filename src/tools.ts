@@ -33,7 +33,7 @@ export function rawWhois(hostname: string): Promise<tRawWhois | boolean> {
         }
         
             
-        console.log(whoisOptions)
+        // console.log(whoisOptions)
         // let parsed = psl.parse(domain)
         // console.log(domain)
         whois.lookup(domain,whoisOptions , (err: any, raw: any) => {

@@ -42,7 +42,7 @@ function rawWhois(hostname) {
                 if (Array.isArray(whoisServer) && whoisServer.length > 0)
                     whoisOptions['server'] = whoisServer[0];
             }
-            console.log(whoisOptions);
+            // console.log(whoisOptions)
             // let parsed = psl.parse(domain)
             // console.log(domain)
             whois_1.default.lookup(domain, whoisOptions, (err, raw) => {
