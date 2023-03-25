@@ -89,6 +89,7 @@ function parseWhois(data) {
             tld === 'ooo' ||
             tld === 'cc' ||
             tld === 'xyz' ||
+            tld === 'pro' ||
             tld === 'live' ||
             tld === 'motorcycles' ||
             tld === 'info')
