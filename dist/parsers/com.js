@@ -38,6 +38,8 @@ class parser_com extends CParser_1.CParser {
             // .live
             if (l.startsWith(`The registration of this domain is restricted, as it is protected`))
                 return true;
+            if (l.startsWith(`This domain has been reserved by the registry`))
+                return true;
         }
         return false;
     }
