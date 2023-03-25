@@ -101,6 +101,25 @@ function parseWhois(data) {
             parser = new at_1.parser_at(data);
         if (!parser)
             return false;
+        // domain is free
+        if (parser.isFree()) {
+            let ret = {
+                outcome: "free",
+                domain: data.hostname.toLowerCase(),
+                tld: data.parsedHostname.tldData.tld,
+            };
+            return ret;
+        }
+        // domain is reserved, TODO
+        if (parser.isReserved()) {
+            let ret = {
+                outcome: "reserved",
+                domain: data.hostname.toLowerCase(),
+                tld: data.parsedHostname.tldData.tld,
+            };
+            return ret;
+        }
+        // domain is registered
         if (parser.isRegistered()) {
             let ret = {
                 outcome: "registered",
@@ -116,15 +135,6 @@ function parseWhois(data) {
                 registrar: {
                     name: parser.parseRegistrar()
                 }
-            };
-            return ret;
-        }
-        // domain is free
-        if (parser.isFree()) {
-            let ret = {
-                outcome: "free",
-                domain: data.hostname.toLowerCase(),
-                tld: data.parsedHostname.tldData.tld,
             };
             return ret;
         }

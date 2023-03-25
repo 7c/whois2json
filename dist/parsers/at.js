@@ -15,6 +15,10 @@ class parser_at extends CParser_1.CParser {
                 return true;
         return false;
     }
+    isReserved() {
+        // to implement
+        return false;
+    }
     isRegistered() {
         const data = this.data;
         for (let l of data.byline)

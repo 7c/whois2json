@@ -33,6 +33,14 @@ class parser_com extends CParser_1.CParser {
         }
         return false;
     }
+    isReserved() {
+        for (let l of this.data.byline) {
+            // .live
+            if (l.startsWith(`The registration of this domain is restricted, as it is protected`))
+                return true;
+        }
+        return false;
+    }
     isRegistered() {
         const data = this.data;
         for (let l of data.byline) {

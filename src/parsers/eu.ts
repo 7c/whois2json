@@ -33,6 +33,11 @@ export class parser_eu extends CParser implements IrawParser {
         return nameservers
     }
 
+    isReserved(): boolean {
+        // to implement
+        return false
+    }
+    
     parseRegistrar(): string | null {
         const data = this.data
         let nsi = this.findIndexStarting("Registrar:")

@@ -14,6 +14,12 @@ export type whoisJsonRegistered = {
     }
 }
 
+export type whoisJsonReserved = {
+    outcome: string,
+    domain: string,
+    tld: string
+}
+
 export type whoisJsonFree = {
     outcome: string,
     domain: string,

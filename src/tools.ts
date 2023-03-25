@@ -5,7 +5,7 @@ import { parseDomain } from 'whoisserver-world'
 import { parser_de } from './parsers/de'
 import { parser_eu } from './parsers/eu'
 import { parser_at } from './parsers/at'
-import { tRawWhois,whoisJsonRegistered,whoisJsonFree } from './types'
+import { tRawWhois,whoisJsonRegistered,whoisJsonFree,whoisJsonReserved } from './types'
 const debug = dbg("tools")
 
 
@@ -59,8 +59,7 @@ export function rawWhois(hostname: string): Promise<tRawWhois | boolean> {
     })
 }
 
-
-export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | whoisJsonFree | boolean {
+export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | whoisJsonFree | whoisJsonReserved | boolean {
     debug("parseWhois")
     if (typeof data === 'object') {
         const tld = data.parsedHostname.tld
@@ -93,6 +92,27 @@ export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | who
 
         if (!parser) return false
 
+
+        // domain is free
+        if (parser.isFree()) {
+            let ret = {
+                outcome: "free",
+                domain: data.hostname.toLowerCase(),
+                tld: data.parsedHostname.tldData.tld,
+            }
+            return ret as whoisJsonFree
+        }
+        // domain is reserved, TODO
+        if (parser.isReserved()) {
+            let ret = {
+                outcome: "reserved",
+                domain: data.hostname.toLowerCase(),
+                tld: data.parsedHostname.tldData.tld,
+            }
+            return ret as whoisJsonReserved
+        }
+
+        // domain is registered
         if (parser.isRegistered()) {
             let ret = {
                 outcome: "registered",
@@ -112,15 +132,7 @@ export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | who
             return ret as whoisJsonRegistered
         }
 
-        // domain is free
-        if (parser.isFree()) {
-            let ret = {
-                outcome: "free",
-                domain: data.hostname.toLowerCase(),
-                tld: data.parsedHostname.tldData.tld,
-            }
-            return ret as whoisJsonFree
-        }
+        
     }
     // error
     return false

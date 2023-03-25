@@ -26,6 +26,14 @@ export class parser_com extends CParser implements IrawParser {
         return false
     }
 
+    isReserved(): boolean {
+        for (let l of this.data.byline) {
+            // .live
+            if (l.startsWith(`The registration of this domain is restricted, as it is protected`)) return true
+        }
+        return false
+    }
+
     isRegistered(): boolean {
         const data = this.data
         for (let l of data.byline) {

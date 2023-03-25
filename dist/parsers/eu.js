@@ -38,6 +38,10 @@ class parser_eu extends CParser_1.CParser {
         }
         return nameservers;
     }
+    isReserved() {
+        // to implement
+        return false;
+    }
     parseRegistrar() {
         const data = this.data;
         let nsi = this.findIndexStarting("Registrar:");
