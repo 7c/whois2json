@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.parser_com = void 0;
 const CParser_1 = require("./super/CParser");
 const debug_1 = __importDefault(require("debug"));
+const mybase_1 = require("mybase");
 const debug = (0, debug_1.default)("parser:com");
 class parser_com extends CParser_1.CParser {
     isFree() {
@@ -86,8 +87,11 @@ class parser_com extends CParser_1.CParser {
         const data = this.data;
         let nameservers = [];
         for (let l of data.byline)
-            if (l.search(/^Name Server:/) == 0)
-                nameservers.push(l.split(':')[1].trim().toLowerCase());
+            if (l.search(/^Name Server:/) == 0) {
+                const nsRight = l.split(':')[1].trim().toLowerCase();
+                if ((0, mybase_1.validHostname)(nsRight))
+                    nameservers.push(nsRight);
+            }
         return nameservers;
     }
 }

@@ -2,6 +2,7 @@ import { IrawParser } from "../interfaces";
 import { CParser } from "./super/CParser";
 import dbg from "debug"
 import { domainStatus } from "../types";
+import { validHostname } from "mybase"
 const debug = dbg("parser:com")
 
 export class parser_com extends CParser implements IrawParser {
@@ -84,7 +85,11 @@ export class parser_com extends CParser implements IrawParser {
         let nameservers = []
         for (let l of data.byline)
             if (l.search(/^Name Server:/) == 0)
-                nameservers.push(l.split(':')[1].trim().toLowerCase());
+             {
+                const nsRight = l.split(':')[1].trim().toLowerCase()
+                if (validHostname(nsRight)) nameservers.push(nsRight)
+             }
+                
         return nameservers
     }
 }
