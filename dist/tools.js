@@ -87,6 +87,8 @@ function parseWhois(data) {
             tld === 'io' ||
             tld === 'us' ||
             tld === 'ooo' ||
+            tld === 'cc' ||
+            tld === 'xyz' ||
             tld === 'info')
             parser = new com_1.parser_com(data);
         if (tld === 'de')

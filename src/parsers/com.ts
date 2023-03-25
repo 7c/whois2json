@@ -7,6 +7,7 @@ const debug = dbg("parser:com")
 export class parser_com extends CParser implements IrawParser {
     isFree() {
         const data = this.data
+        //
         // biz
         if (data.raw.search(/^No Data Found\r\n/) === 0) return true
         // life
@@ -19,6 +20,8 @@ export class parser_com extends CParser implements IrawParser {
         for (let l of data.byline) {
             // com,net,org,info
             if (l.startsWith(`No match for domain \"${data.hostname.toUpperCase()}\"`)) return true
+            // No match for "BURNER-CELL4S.CC".
+            if (l.startsWith(`No match for \"${data.hostname.toUpperCase()}\"`)) return true
         }
         return false
     }

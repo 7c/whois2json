@@ -10,7 +10,7 @@ async function start() {
         // console.log(`whois2json ${domain}`)
         let got = await rawWhois(domain)
         if (got) {
-            // console.log(got)
+            if (argv.raw) console.log(got)
             let res = parseWhois(got)
             console.log(res)
         } else {

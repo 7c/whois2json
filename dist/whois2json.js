@@ -23,7 +23,8 @@ function start() {
             // console.log(`whois2json ${domain}`)
             let got = yield (0, tools_1.rawWhois)(domain);
             if (got) {
-                // console.log(got)
+                if (argv.raw)
+                    console.log(got);
                 let res = (0, tools_1.parseWhois)(got);
                 console.log(res);
             }

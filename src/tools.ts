@@ -80,6 +80,8 @@ export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | who
             tld === 'io' ||
             tld === 'us' ||
             tld === 'ooo' ||
+            tld === 'cc' ||
+            tld === 'xyz' ||
             tld === 'info') parser = new parser_com(data)
 
         if (tld === 'de') parser = new parser_de(data)
