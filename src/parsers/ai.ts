@@ -16,7 +16,7 @@ export class parser_ai extends CParser implements IrawParser {
     isRegistered(): boolean {
         const data = this.data
         for (let l of data.byline) {
-            console.log(`>>`,l)
+            // console.log(`>>`,l)
             if (l.search(/Registry RegistrantID:/) === 0) return true
         }
         return false

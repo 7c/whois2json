@@ -19,7 +19,7 @@ class parser_ai extends CParser_1.CParser {
     isRegistered() {
         const data = this.data;
         for (let l of data.byline) {
-            console.log(`>>`, l);
+            // console.log(`>>`,l)
             if (l.search(/Registry RegistrantID:/) === 0)
                 return true;
         }

@@ -7,6 +7,7 @@ import dbg from 'debug'
 import { parseDomain } from 'whoisserver-world'
 import { parser_de } from './parsers/de'
 import { parser_eu } from './parsers/eu'
+import { parser_gg } from './parsers/gg'
 import { parser_ai } from './parsers/ai'
 import { parser_at } from './parsers/at'
 import { tRawWhois, whoisJsonRegistered, whoisJsonFree, whoisJsonReserved } from './types'
@@ -74,6 +75,7 @@ export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | who
                   new parser_com(data)
                 , new parser_de(data)
                 , new parser_ai(data)
+                , new parser_gg(data)
                 , new parser_eu(data)
                 , new parser_at(data)]) {
                 if (p.isRegistered() || p.isFree() || p.isReserved()) {
@@ -110,6 +112,7 @@ export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | who
         if (tld === 'de') parser = new parser_de(data)
         if (tld === 'ai') parser = new parser_ai(data)
         if (tld === 'eu') parser = new parser_eu(data)
+        if (tld === 'gg') parser = new parser_gg(data)
         if (tld === 'at') parser = new parser_at(data)
 
 

@@ -21,6 +21,7 @@ const debug_1 = __importDefault(require("debug"));
 const whoisserver_world_1 = require("whoisserver-world");
 const de_1 = require("./parsers/de");
 const eu_1 = require("./parsers/eu");
+const gg_1 = require("./parsers/gg");
 const ai_1 = require("./parsers/ai");
 const at_1 = require("./parsers/at");
 const debug = (0, debug_1.default)("tools");
@@ -82,6 +83,7 @@ function parseWhois(data) {
                 new com_1.parser_com(data),
                 new de_1.parser_de(data),
                 new ai_1.parser_ai(data),
+                new gg_1.parser_gg(data),
                 new eu_1.parser_eu(data),
                 new at_1.parser_at(data)
             ]) {
@@ -121,6 +123,8 @@ function parseWhois(data) {
             parser = new ai_1.parser_ai(data);
         if (tld === 'eu')
             parser = new eu_1.parser_eu(data);
+        if (tld === 'gg')
+            parser = new gg_1.parser_gg(data);
         if (tld === 'at')
             parser = new at_1.parser_at(data);
         if (!parser)
