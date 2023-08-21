@@ -13,14 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.parseWhois = exports.rawWhois = void 0;
+const chalk_1 = __importDefault(require("chalk"));
+const minimist_1 = __importDefault(require("minimist"));
 const com_1 = require("./parsers/com");
 const whois_1 = __importDefault(require("whois"));
 const debug_1 = __importDefault(require("debug"));
 const whoisserver_world_1 = require("whoisserver-world");
 const de_1 = require("./parsers/de");
 const eu_1 = require("./parsers/eu");
+const ai_1 = require("./parsers/ai");
 const at_1 = require("./parsers/at");
 const debug = (0, debug_1.default)("tools");
+const argv = (0, minimist_1.default)(process.argv.slice(2));
 function rawWhois(hostname) {
     debug(`rawWhois(${hostname})`);
     return new Promise(function (resolve, reject) {
@@ -37,7 +41,7 @@ function rawWhois(hostname) {
                 server: "",
             };
             // we update whoisserver from whoisserver-world for certain tlds
-            if (['ooo'].includes(tld)) {
+            if (['ooo', 'tv'].includes(tld)) {
                 let whoisServer = parsedHostname.tldData.whoisServer;
                 if (Array.isArray(whoisServer) && whoisServer.length > 0)
                     whoisOptions['server'] = whoisServer[0];
@@ -73,6 +77,21 @@ function parseWhois(data) {
         const tld = data.parsedHostname.tld;
         debug(`tld:${tld}`);
         let parser;
+        if (argv.scan) {
+            for (let p of [
+                new com_1.parser_com(data),
+                new de_1.parser_de(data),
+                new ai_1.parser_ai(data),
+                new eu_1.parser_eu(data),
+                new at_1.parser_at(data)
+            ]) {
+                if (p.isRegistered() || p.isFree() || p.isReserved()) {
+                    console.log(chalk_1.default.blue.inverse(`scanned ${tld} and found ${p.constructor.name}`));
+                    parser = p;
+                    break;
+                }
+            }
+        }
         // com,net,org,info,biz very similar raw data
         if (tld === 'com' ||
             tld === 'net' ||
@@ -87,6 +106,7 @@ function parseWhois(data) {
             tld === 'io' ||
             tld === 'us' ||
             tld === 'ooo' ||
+            tld === 'tv' ||
             tld === 'cc' ||
             tld === 'xyz' ||
             tld === 'pro' ||
@@ -96,6 +116,8 @@ function parseWhois(data) {
             parser = new com_1.parser_com(data);
         if (tld === 'de')
             parser = new de_1.parser_de(data);
+        if (tld === 'ai')
+            parser = new ai_1.parser_ai(data);
         if (tld === 'eu')
             parser = new eu_1.parser_eu(data);
         if (tld === 'at')
