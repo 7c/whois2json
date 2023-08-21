@@ -103,6 +103,7 @@ export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | who
             tld === 'xyz' ||
             tld === 'pro' ||
             tld === 'live' ||
+            tld === 'me' ||
             tld === 'motorcycles' ||
             tld === 'info') parser = new parser_com(data)
 

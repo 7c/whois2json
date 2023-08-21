@@ -111,6 +111,7 @@ function parseWhois(data) {
             tld === 'xyz' ||
             tld === 'pro' ||
             tld === 'live' ||
+            tld === 'me' ||
             tld === 'motorcycles' ||
             tld === 'info')
             parser = new com_1.parser_com(data);

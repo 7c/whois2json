@@ -9,8 +9,11 @@ async function start() {
         let domain = argv._[0] ? argv._[0] : "test.com"
         // console.log(`whois2json ${domain}`)
         let got = await rawWhois(domain)
-        if (typeof got === 'object' && 'parsedHostname' in got) 
-            console.log(got.parsedHostname,chalk.bold(got.raw))
+
+        if (argv.raw) // to output raw whois to console
+            if (typeof got === 'object' && 'parsedHostname' in got)
+                console.log(got.parsedHostname, chalk.bold(got.raw))
+            
         if (got) {
             if (argv.raw) console.log(got)
             let res = parseWhois(got)
