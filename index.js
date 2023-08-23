@@ -11,5 +11,6 @@ function whois2json(hostname) {
 
 module.exports = {
     whois2json,
-    parseDomain
+    parseDomain,
+    rawWhois
 }

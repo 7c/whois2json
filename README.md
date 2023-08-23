@@ -5,9 +5,16 @@ library to whois certain TLDs. We use whoisserver-world library to parseDomain a
 `npm i --save https://github.com/7c/whois2json`
 
 ```
-import { whois2json } from '7c/whois2json'
-
+## to get parsed whois
+import { whois2json,parseDomain } from '7c/whois2json'
+let domain = parseDomain('www.example.com')
 let result = await whois2json(domain.name)
+```
+
+```
+## to get raw whois
+import { rawWhois } from '7c/whois2json'
+console.log(await rawWhois('example.com'))
 ```
 
 ## CLI
