@@ -80,6 +80,10 @@ export class parser_com extends CParser implements IrawParser {
         return false
     }
 
+    isInvalid(): boolean {
+        return false
+    }
+
     parseNameservers(): string[] {
         const data = this.data
         let nameservers = []

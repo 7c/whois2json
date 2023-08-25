@@ -12,6 +12,10 @@ export class parser_gg extends CParser implements IrawParser {
         return false
     }
 
+    isInvalid(): boolean {
+        return false
+    }
+
     isRegistered(): boolean {
         const data = this.data
         for (let l of data.byline) {

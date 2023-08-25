@@ -46,6 +46,10 @@ export class parser_at extends CParser implements IrawParser {
         return false
     }
 
+    isInvalid(): boolean {
+        return false
+    }
+
     parseExpiration(): Date | boolean {
         return false
     }

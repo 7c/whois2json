@@ -40,6 +40,9 @@ class parser_ai extends CParser_1.CParser {
         // to implement
         return false;
     }
+    isInvalid() {
+        return false;
+    }
     parseRegistrar() {
         const data = this.data;
         for (let l of data.byline)

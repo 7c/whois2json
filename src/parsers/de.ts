@@ -16,6 +16,9 @@ export class parser_de extends CParser implements IrawParser {
         // to implement
         return false
     }
+    isInvalid(): boolean {
+        return false
+    }
     
     isRegistered(): boolean {
         const data = this.data

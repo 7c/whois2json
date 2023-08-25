@@ -24,6 +24,7 @@ const eu_1 = require("./parsers/eu");
 const gg_1 = require("./parsers/gg");
 const ai_1 = require("./parsers/ai");
 const at_1 = require("./parsers/at");
+const tr_1 = require("./parsers/tr");
 const debug = (0, debug_1.default)("tools");
 const argv = (0, minimist_1.default)(process.argv.slice(2));
 function rawWhois(hostname) {
@@ -42,7 +43,7 @@ function rawWhois(hostname) {
                 server: "",
             };
             // we update whoisserver from whoisserver-world for certain tlds
-            if (['ooo', 'tv'].includes(tld)) {
+            if (['ooo', 'tv', 'zip', 'zero'].includes(tld)) {
                 let whoisServer = parsedHostname.tldData.whoisServer;
                 if (Array.isArray(whoisServer) && whoisServer.length > 0)
                     whoisOptions['server'] = whoisServer[0];
@@ -105,6 +106,7 @@ function parseWhois(data) {
             tld === 'top' ||
             tld === 'world' ||
             tld === 'site' ||
+            tld === 'zip' ||
             tld === 'io' ||
             tld === 'us' ||
             tld === 'ooo' ||
@@ -127,8 +129,19 @@ function parseWhois(data) {
             parser = new gg_1.parser_gg(data);
         if (tld === 'at')
             parser = new at_1.parser_at(data);
+        if (tld === 'tr')
+            parser = new tr_1.parser_tr(data);
         if (!parser)
             return false;
+        // domain is invalid
+        if (parser.isInvalid()) {
+            let ret = {
+                outcome: "invalid",
+                domain: data.hostname.toLowerCase(),
+                tld: data.parsedHostname.tldData.tld,
+            };
+            return ret;
+        }
         // domain is free
         if (parser.isFree()) {
             let ret = {
@@ -151,7 +164,7 @@ function parseWhois(data) {
         if (parser.isRegistered()) {
             let ret = {
                 outcome: "registered",
-                domain: data.hostname.toLowerCase(),
+                domain: data.parsedHostname.domain.toLowerCase(),
                 tld: data.parsedHostname.tldData.tld,
                 nameservers: parser.parseNameservers(),
                 dates: {

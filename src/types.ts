@@ -26,6 +26,12 @@ export type whoisJsonFree = {
     tld: string
 }
 
+export type whoisJsonInvalid = {
+    outcome: string,
+    domain: string,
+    tld: string
+}
+
 export enum domainStatus {
     redemptionPeriod = 'redemptionPeriod',
     clientTransferProhibited = 'clientTransferProhibited',

@@ -83,6 +83,9 @@ class parser_com extends CParser_1.CParser {
                 return new Date(l.split('Date:')[1].trim());
         return false;
     }
+    isInvalid() {
+        return false;
+    }
     parseNameservers() {
         const data = this.data;
         let nameservers = [];

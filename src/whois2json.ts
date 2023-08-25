@@ -13,7 +13,7 @@ async function start() {
         if (argv.raw) // to output raw whois to console
             if (typeof got === 'object' && 'parsedHostname' in got)
                 console.log(got.parsedHostname, chalk.bold(got.raw))
-            
+
         if (got) {
             if (argv.raw) console.log(got)
             let res = parseWhois(got)
@@ -23,6 +23,7 @@ async function start() {
         }
     } catch (err) {
         console.log(err)
+        process.exit(1)
     }
 }
 

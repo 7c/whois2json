@@ -4,6 +4,8 @@ export interface IrawParser {
     isFree():boolean
     isRegistered():boolean
     isReserved():boolean
+    isInvalid():boolean
+
     parseRegistrar(): string | null
     parseUpdateDate(): Date | boolean
     parseExpiration(): Date | boolean

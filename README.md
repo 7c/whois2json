@@ -20,6 +20,8 @@ console.log(await rawWhois('example.com'))
 ## CLI
 `npm i -g https://github.com/7c/whois2json`
 
+--raw : will output raw whois
+--scan : will scan all known parsers (development only)
 
 ### dist/tldinfo <tld>
 shows information about top-level-domain such as `sampleDomains`

@@ -20,6 +20,9 @@ class parser_de extends CParser_1.CParser {
         // to implement
         return false;
     }
+    isInvalid() {
+        return false;
+    }
     isRegistered() {
         const data = this.data;
         for (let l of data.byline) {

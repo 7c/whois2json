@@ -38,6 +38,10 @@ export class parser_ai extends CParser implements IrawParser {
         // to implement
         return false
     }
+
+    isInvalid(): boolean {
+        return false
+    }
     
     parseRegistrar(): string | null {
         const data = this.data

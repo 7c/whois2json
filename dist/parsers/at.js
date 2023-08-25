@@ -44,6 +44,9 @@ class parser_at extends CParser_1.CParser {
     parseUpdateDate() {
         return false;
     }
+    isInvalid() {
+        return false;
+    }
     parseExpiration() {
         return false;
     }

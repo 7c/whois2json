@@ -10,7 +10,9 @@ import { parser_eu } from './parsers/eu'
 import { parser_gg } from './parsers/gg'
 import { parser_ai } from './parsers/ai'
 import { parser_at } from './parsers/at'
-import { tRawWhois, whoisJsonRegistered, whoisJsonFree, whoisJsonReserved } from './types'
+import { parser_tr } from './parsers/tr'
+
+import { tRawWhois, whoisJsonRegistered, whoisJsonFree, whoisJsonReserved,whoisJsonInvalid } from './types'
 const debug = dbg("tools")
 const argv = mini(process.argv.slice(2))
 
@@ -31,7 +33,7 @@ export function rawWhois(hostname: string): Promise<tRawWhois | boolean> {
         }
 
         // we update whoisserver from whoisserver-world for certain tlds
-        if (['ooo', 'tv'].includes(tld)) {
+        if (['ooo', 'tv','zip','zero'].includes(tld)) {
             let whoisServer = parsedHostname.tldData.whoisServer
             if (Array.isArray(whoisServer) && whoisServer.length > 0)
                 whoisOptions['server'] = whoisServer[0]
@@ -97,6 +99,7 @@ export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | who
             tld === 'top' ||
             tld === 'world' ||
             tld === 'site' ||
+            tld === 'zip' ||
             tld === 'io' ||
             tld === 'us' ||
             tld === 'ooo' ||
@@ -114,10 +117,18 @@ export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | who
         if (tld === 'eu') parser = new parser_eu(data)
         if (tld === 'gg') parser = new parser_gg(data)
         if (tld === 'at') parser = new parser_at(data)
-
+        if (tld === 'tr') parser = new parser_tr(data)
 
         if (!parser) return false
-
+        // domain is invalid
+        if (parser.isInvalid()) {
+            let ret = {
+                outcome: "invalid",
+                domain: data.hostname.toLowerCase(),
+                tld: data.parsedHostname.tldData.tld,
+            }
+            return ret as whoisJsonInvalid
+        }
 
         // domain is free
         if (parser.isFree()) {
@@ -142,7 +153,7 @@ export function parseWhois(data: tRawWhois | boolean): whoisJsonRegistered | who
         if (parser.isRegistered()) {
             let ret = {
                 outcome: "registered",
-                domain: data.hostname.toLowerCase(),
+                domain: data.parsedHostname.domain.toLowerCase(),
                 tld: data.parsedHostname.tldData.tld,
                 nameservers: parser.parseNameservers(),
                 dates: {

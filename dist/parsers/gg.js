@@ -16,6 +16,9 @@ class parser_gg extends CParser_1.CParser {
             return true;
         return false;
     }
+    isInvalid() {
+        return false;
+    }
     isRegistered() {
         const data = this.data;
         for (let l of data.byline) {
